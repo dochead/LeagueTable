@@ -1,5 +1,3 @@
-<snippet>
-  <content><![CDATA[
 # ${1:LeagueTable}
 A Football League table representation, feed it results and let it calculate how the league goes.
 ## Installation
@@ -8,6 +6,3 @@ TODO: Describe the installation process
 TODO: Write usage instructions
 ## License
 BSD
-]]></content>
-  <tabTrigger>readme</tabTrigger>
-</snippet>
