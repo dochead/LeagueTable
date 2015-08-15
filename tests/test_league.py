@@ -48,5 +48,16 @@ class TestLeague(unittest.TestCase):
         self.assertEqual(len(league.matches), 12)
         self.assertEqual(len(league.teams), 4)
 
+    def test_get_league(self):
+        teams, matches = self.__gen_matches__()
+        league = League(u'Süper Lig')
+
+        for m in matches:
+            league.add_match(m)
+
+        standings = league.get_league_table()
+        self.assertEqual(standings, None)
+
+
     if __name__ == '__main__':
         unittest.main()
