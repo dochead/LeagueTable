@@ -37,9 +37,13 @@ class LeagueApp(object):
 
     def input_raw(self):
         match_result = 'start'
-        print('Enter match results (leave blank when done)')
+        print('Enter match results (leave blank or hit CTRL-D when done)')
         while match_result:
-            match_result = raw_input(': ')
+            try:
+                match_result = raw_input(': ')
+            except EOFError:
+                break
+
             if match_result:
                 try:
                     self.league.add_match(self.mp.parse(match_result))
