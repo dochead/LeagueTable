@@ -31,3 +31,6 @@ class Team(object):
 
     def __lt__(self, other):
         return self.team_name > other.team_name
+
+    def __eq__(self, other):
+        return self.team_name == other.team_name

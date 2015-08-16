@@ -1,3 +1,9 @@
+import logging
+
+logging.basicConfig(level=logging.CRITICAL)
+logger = logging.getLogger(u'league.match')
+
+
 class MatchScoreException(Exception):
     pass
 
@@ -47,16 +53,20 @@ class Match(object):
     def __validate_scores__(self, **kwargs):
         negs = filter(lambda s: s[1] < 0, kwargs.items())
         if len(negs):
-            raise MatchScoreException(u'Score cannot be negative in {} vs. {}: ({})'.format(
+            msg = u'Score cannot be negative in {} vs. {}: ({})'.format(
                 self.home_team.team_name,
                 self.away_team.team_name,
                 u', '.join([u'{}: {}'.format(i[0], i[1]) for i in negs]))
+            logger.error(msg)
+            raise MatchScoreException(
             )
 
     def __validate_teams__(self, home_team, away_team):
         dupes = True if home_team == away_team else False
         if dupes:
-            raise MatchTeamException(u'A team cannot play itself: {} vs. {}'.format(
+            msg = u'A team cannot play itself: {} vs. {}'.format(
                 self.home_team.team_name,
                 self.away_team.team_name)
-            )
+
+            logger.error(msg)
+            raise MatchTeamException(msg)

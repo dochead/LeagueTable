@@ -83,13 +83,13 @@ class TestLeague(unittest.TestCase):
         )
 
     def test_no_teams_standings(self):
-        l = League('League of Sorrow')
+        l = League(u'League of Sorrow')
 
         standings = l.get_league_table
         self.assertEqual(standings, [])
 
     def test_incomplete_standings(self):
-        l = League('Lega Procrastica')
+        l = League(u'Lega Procrastica')
         home = Team(u'Anubis Incompeta')
         away = Team(u'Doitus Latero')
         m = Match(home, 0, away, 0)
