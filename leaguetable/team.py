@@ -1,5 +1,5 @@
 class Team(object):
-    def __init__(self, team_name):
+    def __init__(self, team_name, points=0):
         """
         The Team object contains relevant attributes & methods representing a football team. This
         could include their name, nickname, players, location, etc. Methods that could be added
@@ -10,26 +10,14 @@ class Team(object):
         :param team_name:
         """
         self.team_name = team_name
-        self.won = 0
-        self.drew = 0
-        self.lost = 0
-        self.goals_for = 0
-        self.goals_against = 0
 
     def __repr__(self):
         """
         Provides an interface for python to represent the class.
 
         """
-        return '{} - Pl: {}, W: {}, L: {}, D:{}, GF: {}, GA: {}, GD: {}'.format(
+        return u'{}'.format(
             self.team_name,
-            self.played,
-            self.won,
-            self.drew,
-            self.lost,
-            self.goals_for,
-            self.goals_against,
-            self.goal_difference
         )
 
     def __dict__(self):
@@ -38,14 +26,8 @@ class Team(object):
 
         """
         return {
-            'team_name': self.team_name,
+            u'team_name': self.team_name,
         }
 
-    @property
-    def played(self):
-        return self.won + self.drew + self.lost
-
-
-    @property
-    def goal_difference(self):
-        return self.goals_for - self.goals_against
+    def __lt__(self, other):
+        return self.team_name > other.team_name

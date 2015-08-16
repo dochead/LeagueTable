@@ -27,13 +27,22 @@ class Match(object):
         self.__validate_teams__(home_team, away_team)
 
     @property
-    def winner(self):
+    def result(self):
         if self.home_score > self.away_score:
-            return self.home_team
+            return {
+                u'home': u'won',
+                u'away': u'lost'
+            }
         elif self.home_score < self.away_score:
-            return self.away_team
+            return {
+                u'home': u'lost',
+                u'away': u'won'
+            }
         else:
-            return None
+            return {
+                u'home': u'drew',
+                u'away': u'drew'
+            }
 
     def __validate_scores__(self, **kwargs):
         negs = filter(lambda s: s[1] < 0, kwargs.items())
@@ -41,7 +50,7 @@ class Match(object):
             raise MatchScoreException(u'Score cannot be negative in {} vs. {}: ({})'.format(
                 self.home_team.team_name,
                 self.away_team.team_name,
-                ', '.join(['{}: {}'.format(i[0], i[1]) for i in negs]))
+                u', '.join([u'{}: {}'.format(i[0], i[1]) for i in negs]))
             )
 
     def __validate_teams__(self, home_team, away_team):

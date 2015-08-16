@@ -11,19 +11,37 @@ class TestMatch(unittest.TestCase):
         home = Team(u'Liddlypool')
         away = Team(u'Chelski')
         match = Match(home, 1, away, 0)
-        self.assertEqual(match.winner, home)
+        self.assertEqual(
+            match.result,
+            {
+                u'home': u'won',
+                u'away': u'lost'
+            }
+        )
 
     def test_match_away_win(self):
         home = Team(u'Man Citeh')
         away = Team(u'Gleeds')
         match = Match(home, 1, away, 3)
-        self.assertEqual(match.winner, away)
+        self.assertEqual(
+            match.result,
+            {
+                u'home': u'lost',
+                u'away': u'won'
+            }
+        )
 
     def test_match_draw(self):
         home = Team(u'East Crom Ganglion')
         away = Team(u'Wensleydale')
         match = Match(home, 0, away, 0)
-        self.assertEqual(match.winner, None)
+        self.assertEqual(
+            match.result,
+            {
+                u'home': u'drew',
+                u'away': u'drew'
+            }
+        )
 
     def test_match_negative(self):
         home = Team(u'Supa Strikers')
@@ -36,5 +54,6 @@ class TestMatch(unittest.TestCase):
         with self.assertRaises(MatchTeamException):
             Match(home, 0, home, 0)
 
-if __name__ == '__main__':
+
+if __name__ == u'__main__':
     unittest.main()

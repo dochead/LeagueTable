@@ -19,7 +19,7 @@ class TestLeague(unittest.TestCase):
 
         matches = [
             Match(teams[0], 1, teams[1], 0),
-            Match(teams[0], 2, teams[2], 3),
+            Match(teams[0], 6, teams[2], 6),
             Match(teams[0], 3, teams[3], 3),
             Match(teams[1], 1, teams[0], 2),
             Match(teams[1], 0, teams[2], 5),
@@ -48,16 +48,39 @@ class TestLeague(unittest.TestCase):
         self.assertEqual(len(league.matches), 12)
         self.assertEqual(len(league.teams), 4)
 
-    def test_get_league(self):
-        teams, matches = self.__gen_matches__()
-        league = League(u'Süper Lig')
+    def test_calc_standings(self):
+        home = Team(u'TOP Oss')
+        away = Team(u'Go Ahead Eagles')
+        m = Match(home, 0, away, 3)
+        l = League(u'Eerste Divisie')
 
-        for m in matches:
-            league.add_match(m)
+        match_outcome = l.__calc_league_stats__(m)
+        self.assertEqual(
+            match_outcome,
+            [
+                {u'goals_for': 0, u'won': 0, u'goals_against': 3, u'lost': 1, u'team': home,
+                 u'played': 1, u'drew': 0, u'points': 0},
+                {u'goals_for': 3, u'won': 1, u'goals_against': 0, u'lost': 0, u'team': away,
+                 u'played': 1, u'drew': 0, u'points': 3}
+            ])
 
-        standings = league.get_league_table()
-        self.assertEqual(standings, None)
+        def test_teams_standings(self):
+            teams, matches = self.__gen_matches__()
+            league = League(u'Süper Lig')
 
+            for m in matches:
+                league.add_match(m)
 
-    if __name__ == '__main__':
+            standings = league.get_league_table()
+            self.assertEqual(
+                standings,
+                [
+                    {u'position': 1, u'points': 14, u'team': u'Ankaragücü'},
+                    {u'position': 2, u'points': 8, u'team': u'Gençlerbirliği'},
+                    {u'position': 2, u'points': 8, u'team': u'Kasımpaşa'},
+                    {u'position': 4, u'points': 2, u'team': u'Feriköy'}
+                ]
+            )
+
+    if __name__ == u'__main__':
         unittest.main()
