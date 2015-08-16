@@ -1,5 +1,5 @@
 class Team(object):
-    def __init__(self, team_name, points=0):
+    def __init__(self, team_name):
         """
         The Team object contains relevant attributes & methods representing a football team. This
         could include their name, nickname, players, location, etc. Methods that could be added

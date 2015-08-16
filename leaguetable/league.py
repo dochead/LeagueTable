@@ -37,6 +37,7 @@ class League(object):
         self.__update_table__(team_stats)
 
         self.matches.append(match)
+        return True
 
     def __calc_league_stats__(self, match):
         result = match.result

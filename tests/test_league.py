@@ -64,23 +64,45 @@ class TestLeague(unittest.TestCase):
                  u'played': 1, u'drew': 0, u'points': 3}
             ])
 
-        def test_teams_standings(self):
-            teams, matches = self.__gen_matches__()
-            league = League(u'Süper Lig')
+    def test_teams_standings(self):
+        teams, matches = self.__gen_matches__()
+        league = League(u'Süper Lig')
 
-            for m in matches:
-                league.add_match(m)
+        for m in matches:
+            league.add_match(m)
 
-            standings = league.get_league_table()
-            self.assertEqual(
-                standings,
-                [
-                    {u'position': 1, u'points': 14, u'team': u'Ankaragücü'},
-                    {u'position': 2, u'points': 8, u'team': u'Gençlerbirliği'},
-                    {u'position': 2, u'points': 8, u'team': u'Kasımpaşa'},
-                    {u'position': 4, u'points': 2, u'team': u'Feriköy'}
-                ]
-            )
+        standings = league.get_league_table()
+        self.assertEqual(
+            standings,
+            [
+                {u'position': 1, u'points': 14, u'team': u'Ankaragücü'},
+                {u'position': 2, u'points': 8, u'team': u'Gençlerbirliği'},
+                {u'position': 2, u'points': 8, u'team': u'Kasımpaşa'},
+                {u'position': 4, u'points': 2, u'team': u'Feriköy'}
+            ]
+        )
+
+    def test_no_teams_standings(self):
+        l = League('League of Sorrow')
+
+        standings = l.get_league_table()
+        self.assertEqual(standings, [])
+
+    def test_incomplete_standings(self):
+        l = League('Lega Procrastica')
+        home = Team(u'Anubis Incompeta')
+        away = Team(u'Doitus Latero')
+        m = Match(home, 0, away, 0)
+        l.add_match(m)
+
+        standings = l.get_league_table()
+        self.assertEqual(
+            standings,
+            [
+                {u'points': 1, u'position': 1, u'team': u'Anubis Incompeta'},
+                {u'points': 1, u'position': 1, u'team': u'Doitus Latero'},
+            ]
+        )
 
     if __name__ == u'__main__':
         unittest.main()
