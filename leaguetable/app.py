@@ -46,6 +46,7 @@ class LeagueApp(object):
                 break
 
             if match_result:
+                # noinspection PyUnusedLocal
                 try:
                     self.league.add_match(self.mp.parse(match_result))
                 except (IndexError, ValueError, match.MatchTeamException, match.MatchScoreException) as e:

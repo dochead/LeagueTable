@@ -46,7 +46,7 @@ class League(object):
             if team_obj.team_name not in self._teams:
                 self._teams[team_obj.team_name] = {
                     attr: 0 for attr in self._update_attrs
-                }
+                    }
                 self._teams[team_obj.team_name][u'team'] = team_obj
 
         team_stats = self.__calc_league_stats__(match)
@@ -105,9 +105,9 @@ class League(object):
                 u'team': team[u'team'].team_name
             }
             previous_points = team[u'points']
-            row.update({
-                stat: team[stat] for stat in self.display_attrs
-            })
+            row.update(
+                {stat: team[stat] for stat in self.display_attrs}
+            )
             display_table.append(row)
         return display_table
 

@@ -8,7 +8,8 @@ logger = logging.getLogger(u'league.parser')
 
 
 class MatchParser(object):
-    def parse(self, match_result):
+    @staticmethod
+    def parse(match_result):
         """
         Takes a match and parses it into objects, then adds the match to the league. It splits the line
         across the comma for each team and then further along the last space to seperate team and score,
@@ -33,4 +34,3 @@ class MatchParser(object):
             raise e
 
         return match
-
