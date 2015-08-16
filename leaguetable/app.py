@@ -1,4 +1,5 @@
 import logging
+import codecs
 
 from leaguetable import match_parser
 from leaguetable import league
@@ -55,7 +56,7 @@ class LeagueApp(object):
 
     def input_file(self):
         try:
-            with open(self.filename) as results:
+            with codecs.open(self.filename, "r", "utf-8") as results:
                 for line in results:
                     self.league.add_match(self.mp.parse(line))
         except IOError:
