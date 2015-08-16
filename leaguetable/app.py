@@ -3,7 +3,7 @@ import logging
 from leaguetable import match_parser
 from leaguetable import league
 
-logging.basicConfig(level=logging.WARNING)
+logging.basicConfig(level=logging.CRITICAL)
 logger = logging.getLogger('league.app')
 
 
