@@ -1,5 +1,11 @@
+import logging
+
 from leaguetable import match_parser
 from leaguetable import league
+
+logging.basicConfig(level=logging.WARNING)
+
+logger = logging.getLogger('league.app')
 
 
 class LeagueApp(object):
@@ -8,12 +14,15 @@ class LeagueApp(object):
         self.league = league.League(league_name)
 
         if input_type == 'raw':
+            logger.debug('Raw input chosen')
             self.input = self.input_raw
         elif input_type == 'file':
             if filename:
+                logger.debug('File input chosen')
                 self.input = self.input_file
                 self.filename = filename
             else:
+                logger.error('No results file provided')
                 raise IOError('No results file provided')
 
     def run(self):

@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-.
+import os
+import json
+import optparse
+import pprint
+import logging
+import logging.config
+
+from leaguetable import app
+
+
+def setup_logging(default_config='logging.json', default_level=logging.INFO, env_key='LOG_CFG'):
+    """
+    Setup logging configuration
+
+    """
+
+    path = default_config
+    value = os.getenv(env_key, None)
+    if value:
+        path = value
+    if os.path.exists(path):
+        with open(path, 'rt') as f:
+            config = json.load(f)
+        logging.config.dictConfig(config)
+    else:
+        logging.basicConfig(level=default_level)
+
+logger = logging.getLogger('league')
+
+if __name__ == "__main__":
+
+    parser = optparse.OptionParser()
+    parser.add_option('--filename', '-f', action="store", help="Run filename")
+    parser.add_option('--log_config', '-l', default='', action="store", help="Logging config location (JSON)")
+
+    options, args = parser.parse_args()
+    setup_logging(getattr(options, 'log_config', ''))
+
+    if getattr(options, 'filename'):
+        logger.debug('Method filename chosen: filename: '.format(options.filename))
+        app_settings = {
+            'input_type': 'file',
+            'filename': options.filename
+        }
+    else:
+        logger.debug('Method raw chosen')
+        app_settings = {
+            'input_type': 'raw'
+        }
+
+    logger.debug('Initialising app with: {}'.format(pprint.pformat(app_settings)))
+    main_app = app.LeagueApp(**app_settings)
+    print(main_app.run())
+    logger.debug('Run completed')
