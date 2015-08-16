@@ -54,6 +54,5 @@ class TestMatch(unittest.TestCase):
         with self.assertRaises(MatchTeamException):
             Match(home, 0, home, 0)
 
-
 if __name__ == u'__main__':
     unittest.main()

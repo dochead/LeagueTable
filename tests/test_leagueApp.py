@@ -25,3 +25,6 @@ class TestLeagueApp(unittest.TestCase):
         a = app.LeagueApp(input_type='file', filename='missing.txt')
         with self.assertRaises(IOError):
             a.run()
+
+if __name__ == u'__main__':
+    unittest.main()

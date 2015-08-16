@@ -25,3 +25,7 @@ class TestMatchParser(unittest.TestCase):
                 {u'points': 0, u'position': 5, u'team': 'Grouches'}
             ]
         )
+
+if __name__ == u'__main__':
+    unittest.main()
+

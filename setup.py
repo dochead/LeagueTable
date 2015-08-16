@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='leaguetable',
@@ -8,7 +8,8 @@ setup(
     author='Shayan Raghavjee',
     author_email='dochead@gmail.com',
     license='BSD',
-    packages=['leaguetable'],
+    packages=find_packages(),
     zip_safe=False,
     scripts=['bin/run_league'],
+    include_package_data=True
 )

@@ -104,5 +104,5 @@ class TestLeague(unittest.TestCase):
             ]
         )
 
-    if __name__ == u'__main__':
-        unittest.main()
+if __name__ == u'__main__':
+    unittest.main()
