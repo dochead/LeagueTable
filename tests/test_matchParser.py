@@ -26,6 +26,14 @@ class TestMatchParser(unittest.TestCase):
             ]
         )
 
+    def test_parse_nonsense(self):
+        mp = match_parser.MatchParser()
+        l = League('Futbolico')
+
+        with self.assertRaises(ValueError):
+            l.add_match(mp.parse('No football for you!'))
+
+
 if __name__ == u'__main__':
     unittest.main()
 

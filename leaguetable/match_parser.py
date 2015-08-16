@@ -1,5 +1,10 @@
+import logging
+
 from leaguetable.team import Team
 from leaguetable.match import Match
+
+logging.basicConfig(level=logging.WARNING)
+logger = logging.getLogger('league.parser')
 
 
 class MatchParser(object):
@@ -15,13 +20,17 @@ class MatchParser(object):
         teams = match_result.split(',')
         team_types = ['home', 'away']
         match_data = {}
-        for i, result in enumerate(teams):
-            score_list = result.strip().rsplit(' ', 1)
-            match_data.update({
-                u'{}_team'.format(team_types[i]): Team(score_list[0]),
-                u'{}_score'.format(team_types[i]): int(score_list[1]),
-            })
-        match = Match(**match_data)
+        try:
+            for i, result in enumerate(teams):
+                score_list = result.strip().rsplit(' ', 1)
+                match_data.update({
+                    u'{}_team'.format(team_types[i]): Team(score_list[0]),
+                    u'{}_score'.format(team_types[i]): int(score_list[1]),
+                })
+            match = Match(**match_data)
+        except (IndexError, ValueError) as e:
+            logger.exception('Error in parsing: {}'.format(match_result))
+            raise e
 
         return match
 

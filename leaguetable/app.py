@@ -4,7 +4,6 @@ from leaguetable import match_parser
 from leaguetable import league
 
 logging.basicConfig(level=logging.WARNING)
-
 logger = logging.getLogger('league.app')
 
 
@@ -42,7 +41,11 @@ class LeagueApp(object):
         while match_result:
             match_result = raw_input(': ')
             if match_result:
-                self.league.add_match(self.mp.parse(match_result))
+                try:
+                    self.league.add_match(self.mp.parse(match_result))
+                except (IndexError, ValueError) as e:
+                    logger.exception('Could not parse the result: {}'.format(match_result))
+                    print('Invalid input, ignored {}'.format(match_result))
 
     def input_file(self):
         try:

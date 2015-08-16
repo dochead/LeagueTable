@@ -21,8 +21,9 @@ Inside your virtualenv (or python main if you dare)
 #### Run the script with the interactive prompt
 * run_league
 
-#### Run the script with sample data
+#### Run the script with sample data and with logging
 * run_league --filename LeagueTable/samples/results.txt
+* run_league --filename LeagueTable/samples/results.txt --log_config LeagueTable/samples/logging.json
 
 #### Run the tests
 * cd LeagueTable/tests
