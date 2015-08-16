@@ -71,7 +71,7 @@ class TestLeague(unittest.TestCase):
         for m in matches:
             league.add_match(m)
 
-        standings = league.get_league_table()
+        standings = league.get_league_table
         self.assertEqual(
             standings,
             [
@@ -85,7 +85,7 @@ class TestLeague(unittest.TestCase):
     def test_no_teams_standings(self):
         l = League('League of Sorrow')
 
-        standings = l.get_league_table()
+        standings = l.get_league_table
         self.assertEqual(standings, [])
 
     def test_incomplete_standings(self):
@@ -95,7 +95,7 @@ class TestLeague(unittest.TestCase):
         m = Match(home, 0, away, 0)
         l.add_match(m)
 
-        standings = l.get_league_table()
+        standings = l.get_league_table
         self.assertEqual(
             standings,
             [

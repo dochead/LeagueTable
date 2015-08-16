@@ -16,7 +16,7 @@ class TestMatchParser(unittest.TestCase):
         l.add_match(mp.parse('Lions 4, Grouches 0'))
 
         self.assertEqual(
-            l.get_league_table(),
+            l.get_league_table,
             [
                 {u'points': 6, u'position': 1, u'team': 'Tarantulas'},
                 {u'points': 5, u'position': 2, u'team': 'Lions'},

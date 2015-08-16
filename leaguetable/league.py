@@ -3,6 +3,16 @@ from operator import itemgetter
 
 class League(object):
     def __init__(self, league_name, win_points=3, draw_points=1, lost_points=0):
+        """
+        League model object takes a name and result points. It provides a way to add
+        matches (calculating the stats as it goes), a way to re-calculate stats, get the
+        teams added to the league so far and output the league table.
+
+        :param league_name:
+        :param win_points:
+        :param draw_points:
+        :param lost_points:
+        """
         self.league_name = league_name
         self.matches = []
         self.won_points = win_points
@@ -20,11 +30,17 @@ class League(object):
             u'goals_against',
             u'points',
         ]
-        self._display_attrs = [
+        self.display_attrs = [
             u'points',
         ]
 
     def add_match(self, match):
+        """
+        Takes a match object and adds it to the league structure, in doing so keeps it stored
+        in a list for future reference and updates the stats tally.
+
+        :param match:
+        """
         for t in self._team_types:
             team_obj = getattr(match, u'{}_team'.format(t))
             if team_obj.team_name not in self._teams:
@@ -40,6 +56,13 @@ class League(object):
         return True
 
     def __calc_league_stats__(self, match):
+        """
+        Internal function that generates a lambda to apply to the league as a result of the match
+        provided.
+
+        :param match:
+        :return: League result dictionary
+        """
         result = match.result
         league_result = []
         for i, team in enumerate(self._team_types):
@@ -63,7 +86,14 @@ class League(object):
             for attr in self._update_attrs:
                 self._teams[stat[u'team'].team_name][attr] += stat[attr]
 
+    @property
     def get_league_table(self):
+        """
+        Generates a sorted list of dictionaries with teams in league position. Filters out attributes
+        that aren't in a list of specified display attributes.
+
+        :return:
+        """
         sorted_table = sorted(self._teams.values(), key=itemgetter(u'points', u'team'), reverse=True)
         display_table = []
         display_position = previous_points = -1
@@ -76,7 +106,7 @@ class League(object):
             }
             previous_points = team[u'points']
             row.update({
-                stat: team[stat] for stat in self._display_attrs
+                stat: team[stat] for stat in self.display_attrs
             })
             display_table.append(row)
         return display_table

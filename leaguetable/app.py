@@ -19,9 +19,11 @@ class LeagueApp(object):
     def run(self):
         self.input()
 
-        table_out = '\nLeague Table:'
-        for row in self.league.get_league_table():
-            table_out += '{r[position]}. {r[team]}, {r[points]}pts\n'.format(r=row)
+        table_out = '\nLeague Table:\n\n'
+        for row in self.league.get_league_table:
+            table_out += '{r[position]}. '.format(r=row)
+            table_out += ', '.join([unicode(row[a]) for a in ['team'] + self.league.display_attrs])
+            table_out += 'pts\n'
 
         return table_out
 
@@ -38,5 +40,5 @@ class LeagueApp(object):
             with open(self.filename) as results:
                 for line in results:
                     self.league.add_match(self.mp.parse(line))
-        except IOError, e:
+        except IOError:
             raise IOError('File {} not found or invalid.'.format(self.filename))
