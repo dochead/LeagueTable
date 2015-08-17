@@ -21,6 +21,21 @@ Inside your virtualenv (or python main if you dare)
 #### Run the script with the interactive prompt
 * run_league
 
+
+Sample:
+
+    Enter match results (leave blank or hit CTRL-D when done)
+    : 传统算法通过 2, Liddlypool 1
+    : અંગ્રેજી 1, Liddlypool 1
+    : 传统算法通过 3, અંગ્રેજી 0
+    :
+    
+    League Table:
+    
+    1. 传统算法通过, 6pts
+    2. Liddlypool, 1pts
+    2. અંગ્રેજી, 1pts
+
 #### Run the script with sample data and with logging
 * run_league --filename LeagueTable/samples/results.txt
 * run_league --filename LeagueTable/samples/results.txt --log_config LeagueTable/samples/logging.json
